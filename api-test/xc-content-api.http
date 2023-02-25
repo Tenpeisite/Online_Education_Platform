@@ -1,6 +1,6 @@
 
 ### 课程查询接口
-POST {{content_host}}/content/course/list?pageNo=1&pageSize=5
+POST {{content_host}}/course/list?pageNo=1&pageSize=5
 Content-Type: application/json
 
 {
@@ -8,3 +8,35 @@ Content-Type: application/json
   "courseName": "",
   "publishStatus": ""
 }
+
+### 课程分类查询
+GET {{content_host}}/course-category/tree_nodes
+
+
+### 创建课程
+POST {{content_host}}/course
+Content-Type: application/json
+
+{
+  "mt": "1-1",
+  "st": "1-1-1",
+  "name": "",
+  "pic": "",
+  "teachmode": "200002",
+  "users": "初级人员",
+  "tags": "标签",
+  "grade": "204001",
+  "description": "",
+  "charge": "201001",
+  "price": 10,
+  "originalPrice":100,
+  "qq": "123",
+  "wechat": "123",
+  "phone": "123",
+  "validDays": 365
+}
+
+
+### 查询某个课程的课程计划
+GET {{content_host}}/teachplan/117/tree-nodes
+Content-Type: application/json

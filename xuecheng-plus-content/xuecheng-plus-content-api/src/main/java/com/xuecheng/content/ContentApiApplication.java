@@ -7,6 +7,7 @@ package com.xuecheng.content;/**
 import com.spring4all.swagger.EnableSwagger2Doc;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author 朱焕杰
@@ -16,6 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @EnableSwagger2Doc
+@ComponentScan("com.xuecheng")
 public class ContentApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(ContentApiApplication.class, args);

@@ -1,4 +1,4 @@
-package com.xuecheng.content.model;/**
+package com.xuecheng.base.model;/**
  * @author 朱焕杰
  * @version 1.0
  * @date 2023/2/22 14:25

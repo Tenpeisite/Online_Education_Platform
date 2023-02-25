@@ -1,8 +1,4 @@
-package com.xuecheng.config;/**
- * @author 朱焕杰
- * @version 1.0
- * @date 2023/2/22 15:28
- */
+package com.xuecheng.system.config;
 
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
@@ -13,14 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * @description 时间格式转换
- * @author 朱焕杰
- * @date 2023/2/22 15:28
- * @version 1.0
- */
 @Configuration
 public class LocalDateTimeConfig {
+
     /*
      * 序列化内容
      *   LocalDateTime -> String
@@ -50,4 +41,5 @@ public class LocalDateTimeConfig {
             builder.deserializerByType(LocalDateTime.class, localDateTimeDeserializer());
         };
     }
+
 }
