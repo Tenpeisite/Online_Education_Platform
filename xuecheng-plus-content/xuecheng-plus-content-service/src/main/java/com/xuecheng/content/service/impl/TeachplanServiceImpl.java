@@ -1,15 +1,19 @@
 package com.xuecheng.content.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.xuecheng.base.exception.XueChengPlusException;
 import com.xuecheng.content.mapper.TeachplanMapper;
+import com.xuecheng.content.mapper.TeachplanMediaMapper;
 import com.xuecheng.content.model.dto.SaveTeachplanDto;
 import com.xuecheng.content.model.dto.TeachPlanDto;
 import com.xuecheng.content.model.po.Teachplan;
+import com.xuecheng.content.model.po.TeachplanMedia;
 import com.xuecheng.content.service.TeachplanService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,6 +29,9 @@ public class TeachplanServiceImpl implements TeachplanService {
 
     @Autowired
     private TeachplanMapper teachplanMapper;
+
+    @Autowired
+    private TeachplanMediaMapper teachplanMediaMapper;
 
 
     @Override
@@ -51,6 +58,33 @@ public class TeachplanServiceImpl implements TeachplanService {
             //修改
             teachplanMapper.updateById(teachplan);
         }
+    }
+
+    @Override
+    @Transactional
+    public void deleteTeachplan(Long id) {
+        Teachplan teachplan = teachplanMapper.getById(id);
+        if (teachplan == null) {
+            XueChengPlusException.cast("该课程计划不存在");
+        }
+        //查询这个课程计划是第一级还是第二级
+        Integer grade = teachplan.getGrade();
+        if (grade.intValue() == 1) {
+            //检查“章”下边没有小节方可删除。
+            LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(Teachplan::getParentid, id);
+            int count = teachplanMapper.selectCount(queryWrapper);
+            if (count > 0) {
+                XueChengPlusException.cast("该章节下还有小节，不能删除");
+            }
+        } else {
+            //删除第二级别的小节的关联的视频信息。
+            LambdaQueryWrapper<TeachplanMedia> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(TeachplanMedia::getTeachplanId, id);
+            teachplanMediaMapper.delete(queryWrapper);
+        }
+        //删除章节
+        teachplanMapper.deleteById(id);
     }
 
     //计算新课程计划的orderby

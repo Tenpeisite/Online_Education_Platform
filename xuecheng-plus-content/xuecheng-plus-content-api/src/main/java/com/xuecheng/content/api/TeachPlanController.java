@@ -25,6 +25,7 @@ public class TeachPlanController {
     @Autowired
     private TeachplanService teachplanService;
 
+    @ApiOperation(value = "获得课程计划树形结构", notes = "获得课程计划树形结构")
     @GetMapping("/teachplan/{courseId}/tree-nodes")
     public List<TeachPlanDto> getTreeNodes(@PathVariable Long courseId) {
         return teachplanService.findTeachplayTree(courseId);
@@ -34,5 +35,11 @@ public class TeachPlanController {
     @PostMapping("/teachplan")
     public void saveTeachplan(@RequestBody SaveTeachplanDto dto){
         teachplanService.saveTeachplan(dto);
+    }
+
+    @ApiOperation(value = "删除章节接口",notes = "删除章节")
+    @DeleteMapping("/teachplan/{id}")
+    public void deleteTeachplan(@PathVariable Long id){
+        teachplanService.deleteTeachplan(id);
     }
 }

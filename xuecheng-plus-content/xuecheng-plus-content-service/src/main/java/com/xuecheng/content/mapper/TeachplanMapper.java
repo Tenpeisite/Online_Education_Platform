@@ -20,4 +20,7 @@ public interface TeachplanMapper extends BaseMapper<Teachplan> {
     //查询课程计划(树形结构)
     public List<TeachPlanDto> selectTreeNodes(Long courseId);
 
+    Teachplan getById(Long id);
+
+    void delById(Long id);
 }

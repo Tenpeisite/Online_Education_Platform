@@ -26,6 +26,12 @@
     <sql id="Base_Column_List">
         id, pname, parentid, grade, media_type, start_time, end_time, description, timelength, orderby, course_id, course_pub_id, status, is_preview, create_date, change_date
     </sql>
+    <update id="delById">
+        UPDATE teachplan
+        SET status=0
+        WHERE id = #{id}
+          AND status = 1
+    </update>
     <!-- 课程分类树型结构查询映射结果 -->
     <resultMap id="treeNodeResultMap" type="com.xuecheng.content.model.dto.TeachPlanDto">
         <!-- 一级数据映射 -->
@@ -92,8 +98,15 @@
                  LEFT JOIN teachplan_media m1 on m1.teachplan_id = two.id
         where one.parentid = 0
           and one.course_id = #{value}
+          and one.status = 1
+          and two.status = 1
         order by one.orderby,
                  two.orderby
+    </select>
+    <select id="getById" resultType="com.xuecheng.content.model.po.Teachplan">
+        select *
+        from teachplan
+        where id = #{id}
     </select>
 
 </mapper>

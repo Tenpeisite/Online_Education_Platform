@@ -2,6 +2,7 @@ package com.xuecheng.content.model.po;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -80,6 +81,7 @@ public class Teachplan implements Serializable {
     /**
      * 状态（1正常  0删除）
      */
+    @TableLogic(delval = "0",value = "1")
     private Integer status;
 
     /**
