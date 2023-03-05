@@ -99,7 +99,6 @@
         where one.parentid = 0
           and one.course_id = #{value}
           and one.status = 1
-          and two.status = 1
         order by one.orderby,
                  two.orderby
     </select>

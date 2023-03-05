@@ -42,6 +42,10 @@ public class MediaProcess implements Serializable {
      */
     private String status;
 
+    private String filePath;
+
+    private String errormsg;
+
     /**
      * 上传时间
      */

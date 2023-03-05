@@ -27,7 +27,6 @@ public class GlobalExceptionHandler {
     public RestErrorResponse doXueChengPlusException(XueChengPlusException e) {
         log.error("捕获异常：{}", e.getErrMessage());
         e.printStackTrace();
-
         String errMessage = e.getErrMessage();
         return new RestErrorResponse(errMessage);
     }

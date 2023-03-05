@@ -43,6 +43,8 @@ public class MediaProcessHistory implements Serializable {
      */
     private String status;
 
+    private String filePath;
+
     /**
      * 上传时间
      */
